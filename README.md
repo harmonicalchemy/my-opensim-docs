@@ -1,14 +1,3 @@
----
-file: README.md
-author: Alisha Awen, siren1@disroot.org
-tags: 2021, drafts, unpublished, not-in-ed-cal, HAP-how-to, tutorials, video-games, VR, OpenSim, NeverWorld-grid, SysAdmin, droplet, VPS, hosting
-created: 2020-010-31
-updated: 2020-011-01
-editorial calendar: No EdCal Yet
-published: Not Publised
----
-
-<!-- #2021 #drafts #unpublished #not-in-ed-cal #HAP-how-to #tutorials #video-games #VR #OpenSim #NeverWorld-grid #SysAdmin #droplet #VPS #hosting -->
 
 # HAP My OpenSim Docs - README
 
