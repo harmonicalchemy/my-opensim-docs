@@ -124,33 +124,51 @@ Find out by reading this book... And also discover how Sirenă learned how to Se
 
 
 ** 📄 About this Book:
-This book serves as the official Harmonic Alchemy Productions (HAP) procedure outlining all best practice steps to manually create a new VPS (droplet) on *DigitalOcean*, and provision it to get the it ready for a web-app or generic web-app skeleton to be installed on it for any purpose: (e.g., client or personal, business or pleasure, git server, web tool, mail server, doc-sever, notes server, personal cloud, wiki, Wordpress, OpenSim server, or most any other internet server related process.)
+This book serves as an official Harmonic Alchemy Productions (HAP) tutorial outlining all best practice steps needed to learn the basics, then follow directions while learning how to manually create a new virtual private server /(i.e., VPS - droplet)/ on [[https://m.do.co/c/449bba2e8a2d][*DigitalOcean*]].
 
-Rather than write yet another dry manual that only geeks can tolerate, I decided to let my fiction pen loose and write this up as a classic "Hero's Journey" with real characters.. Characters you will identify with immediately... Maybe you know some of them already living in your regions!
 
-Trying to marry these two dynamically opposed concepts is going to take a lot of digging and plotting... lol... But we will grow a beautiful garden here... I am sure of it... Now that nasty viruses are out there... We can build beautiful vistas with clear blue skies here!  The sky's the limit too! Hooray!!!  Not to hide from the virus, but to team up here in our bunkers and come up with a real-world solution... OK?  We got our grid jedi training to do now... Lets get on it...
+The next "puzzle" for you to solve is how to provision your new droplet and get it ready for running a reasonably secure basic web-app or generic web-app skeleton, which you will have installed yourself /(provided you followed the steps)/ and have begun your own *DIY* test project on your own account at [[https://m.do.co/c/449bba2e8a2d][*DigitalOcean*]]  /(an inexpensive smaller test server setup)/ for beginning. btw, You can shut down your server when not needed so you won't get charged for that up-time... Keep your monthly bill less than $5.  But possibly host at least One reasonably performing region on NeverWorld grid with one or two visitors hanging out there... think about that eh? for less than five bucks!
 
-For now we are using Digital Ocean and I recommend at least starting with that as I currently use them for all my servers now.  There may be other providers who offer services for less, and later I will investigate those options as it is important to have many options when it comes to hosting companies...
+
+The server you build, /(we build together)/ will be ready for any purpose: (e.g., client or personal, business or pleasure, git server, web tool, mail server, doc-sever, notes server, personal cloud, wiki, Wordpress, OpenSim server, or most any other internet server related process.). 
+
+
+*/The main purpose of this book is to teach NeverWorld Grid Designers how to become Self Hosting DevOps System Admins, learning step by step, puzzle by puzzle, game level by game level, stylized as a classic tale about one hacker girl's Hero's Journey into the building and managing of a 100% self hosted OpenSim region server... (written as an Alice in Wonderland sci-fi fantasy novel)/*
+
+
+Yes... you read that correctly!  Rather than write yet another dry manual that only geeks can tolerate, I decided to let my fiction pen loose and write this up as a classic "Hero's Journey" with real characters.. Characters you will identify with immediately... Maybe you know some of them already living in your regions!
+
+
+Trying to marry these two dynamically opposed concepts is going to take a lot of digging and plotting... lol... But we will grow a beautiful garden here... I am sure of it... The world needs online communities more than ever now that these nasty viruses are out there plaguing us IRL... We can build beautiful vistas with clear blue skies here!  The sky's the limit too! Hooray!!!  Not to hide from the virus, but to team up here in our bunkers and come up with a real-world solution... OK?  We got our grid jedi training to do now... Lets get on it...
+
+
+For now we are using [[https://m.do.co/c/449bba2e8a2d][*DigitalOcean*]].  I recommend at least starting with that as I currently use them for all my servers now.  There may be other providers who offer services for less, and later I will investigate those options as it is important to have many options when it comes to hosting companies...
+
 
 This tutorial assumes you have access to a Linux/BSD/or other unix platform as your local DevOps / SysAdmin machine which you will be using to connect securely via SSH on the command line (within a terminal app) in order to create and manage your remote servers within the data centres where they are hosted...  
 
+
 If your normal user platform is Windows I cannot help you much with that.  I have been a unix/Linux/BSD/Mac OS person for over 15 years, (after leaving IBM to start my own company) so my Windows knowledge is vastly limited.  I do know there is Cygwin: https://www.cygwin.com/ and if you install that on your windows box, you should be able to do most of the things within this tutorial... But I cannot really help beyond that... I need a windows/unix wizard to step up and help out here... I know that Microsoft has made lots of changes as of late... Thanks!
+
 
 If you are completely new to the unix command line... Take a look at this great tutorial: https://www.openbookproject.net/tutorials/getdown/unix/lesson1.html
 
+
 Depending on your platform, you may need to install and/or configure your systems "unix Terminal" application which you will use to practice the commands etc. from the above tutorial...  Having this basic unix command line knowledge under your belt will help you tremendously while following the steps outlined in this tutorial...
+
 
 In addition to a Terminal Application, you also need a Text Editor... Not a word processor, but a true coder's text editor, (like Vi or Emacs which are the grandparents of all the rest)...
 
+
 I use Emacs which is not only a text editor but also the gateway app to a world (a secret cult) of computer science wizards who are able to make their machines do amazing things without ever touching a mouse!  Amazing things that most GUI apps never dreamed of being able to do!  The mainstream has suppressed your knowledge of the command line... You could become a hacker!  OMG!  No don't let them have that kind of power... (sorry I got carried away there... lol)...
 
-Enough introduction already.. Lets get on with this Self Hosting 101 course...
 
-* 📖 Background Story 
+Enough introduction already.. Lets get on with this Self Hosting 101 course...
+* NEXT 📖 Background Story 
 
 # Begin Chapter:
 
-** 📄 Episode: Hacker Girl Grows Up
+** NEW 📄 Episode: Hacker Girl Grows Up
 
 :README:
 Episodes or Scenes are the DNA that make up the chapters in a novel...  
@@ -162,7 +180,7 @@ Chapters can contain several scenes or episodes... There can be many twisty path
 
 Lorem Ipsum Lorem Ipsum dolor sit amet, consectetuer adipiscingelit. Duis tellus. Donec ante dolor, iaculis nec, gravidaac, cursus in, eros. Mauris vestibulum, felis et egestasullamcorper, purus nibh vehicula sem, eu egestas antenisl non justo. Fusce tincidunt, lorem nev dapibusconsectetuer, leo orci mollis ipsum, eget suscipit erospurus in ante.
 
-** 📄 Episode: Hacker Girl Discovers Second Life
+** NEW 📄 Episode: Hacker Girl Discovers Second Life
 
 <insert chapter / episode text here>
 
@@ -170,7 +188,7 @@ Lorem Ipsum Lorem Ipsum dolor sit amet, consectetuer adipiscingelit. Duis tellus
 
 # End of Chapter:
 
-** 🗒 Background Notes:                                             :noexport:
+** NEW 🗒 Background Notes:                                        :noexport:
 
 :README:
 + Mark each note's timestamp to its initial creation time. This will enable emerging notes for chapters to be searched chronologically, and to give you an idea of how things evolve over time...
@@ -182,13 +200,13 @@ Lorem Ipsum Lorem Ipsum dolor sit amet, consectetuer adipiscingelit. Duis tellus
 
 Add Notes here for this chapter... They do not get published... 
 
-* 📖 Hacker Girl Begins her Training
+* ACTIVE 📖 Hacker Girl Begins her Training
 
 # Begin Chapter:
 
-** 📄 Episode: unixFU Basics
+** NEW 📄 Episode: unixFU Basics
 
-** 📄 Episode: Self Hosting 101
+** ACTIVE 📄 Episode: Self Hosting 101
 *** Step One: Create DigitalOcean Account 
 
 First thing to do is open an account with Digital Ocean... This is a free account starting out and you are not charged for setting it up...
@@ -235,7 +253,11 @@ Not someone who criminally breaks into software systems... I call those people "
 
 # End of Chapter:
 
-** 🗒 Background Notes:                                             :noexport:
+** DONE 🗒 Background Notes:                                       :noexport:
+CLOSED: [2020-11-01 Sun 15:10]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-01 Sun 15:10]
+:END:
 
 :README:
 + Mark each note's timestamp to its initial creation time. This will enable emerging notes for chapters to be searched chronologically, and to give you an idea of how things evolve over time...
@@ -257,7 +279,7 @@ I am writing this chapter based on excerpts from my Scrivener Research documents
 
 
 
-* 📖 New Chapter
+* NEW 📖 New Chapter
 
 # Begin Chapter:
 
@@ -290,7 +312,7 @@ At ipsum vitae est lacinia tincidunt. Maecenas elit orci,gravida ut, molestie no
 Add your note here... it will not be published...
 
 
-* 📒 Research:                                                     :noexport:
+* NEXT 📒 Research:                                                :noexport:
 ** 💡 Reference Notes:
 
 Add any references here that are important to record while you are writing this book...

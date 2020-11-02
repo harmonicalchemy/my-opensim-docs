@@ -3,41 +3,42 @@ file: /OpenSim-Grid-Docs/HAP-OpenSim-Region-Server-Build-Config-All.md
 author: Alisha Awen, siren1@disroot.org
 tags: 2021, drafts, unpublished, not-in-ed-cal, HAP-how-to, tutorials, video-games, VR, OpenSim, NeverWorld-grid, SysAdmin, droplet, VPS, hosting
 created: 2020-010-31
-updated: 2020-010-31
+updated: 2020-011-01
 editorial calendar: No EdCal Yet
 published: Not Publised
 ---
 
 <!-- #2021 #drafts #unpublished #not-in-ed-cal #HAP-how-to #tutorials #video-games #VR #OpenSim #NeverWorld-grid #SysAdmin #droplet #VPS #hosting -->
 
+
 # HAP OpenSim Region Server Build Config Guide
 
-#### Synopsis:
+**[\[Table of Contents\]](#table-of-contents)**
 
-This is my first-draft of a complete tutorial _(from start to finish)_ to Self Host an OpenSim region server connected to the NeverWorld grid, running on a Digital Ocean VPS droplet... All sub tasks included, and hopefully written for folks with no prior DevOps experience to follow and successfully self-host their own regions in the same fashion for not too much money per month!  This configuration will provide a much better in-world experience for Avitars visiting your region than any setup hosted from a residential home computer/network... Starting out with the minimal resources _(mostly RAM because bandwidth and disk space on smaller VPS droplets is more than sufficient)_ to see how performance goes for a small region starting out... 
+## Introduction:
 
-Once this proof-of-concept is proven and working well, we will expand to a larger VPS droplet to see how performance compares with dedicated server hardware _(also running within a fast data center)_ From a system archetecture point of view, performance has no bearing on whether the system is virtual or bare metal.  At the end of the day, it is all running on bare-metal...  Performace and scale are dependent on resources allocated... A powerful VPS should perform equally well with a single dedicated co-located hardware machine configured wiht the same resources...
+**Happy Halloween 2020!**  This is a first-draft of a complete tutorial _(from start to finish)_ about **_"How to self host an OpenSim region server connected to the NeverWorld grid"_**, running on a [DigitalOcean VPS droplet](https://m.do.co/c/449bba2e8a2d)... All sub tasks included, and hopefully written for folks with no prior DevOps experience to follow and successfully self-host their own regions in the same fashion for not too much money per month!  
 
-:link: Link to: **[@Autofocus Notebook](https://trello.com/c/y7MhcYZf)**  
+This configuration will provide a much better in-world experience for Avitars visiting your region than any setup hosted from a residential home computer/network... Starting out with the minimal resources _(mostly RAM because bandwidth and disk space on smaller VPS droplets is more than sufficient)_ to see how performance goes for a small region starting out... 
 
-:link: Link to: **[@Projects - MWM](https://trello.com/b/DvPgUxbi)**  
+Once this proof-of-concept is proven and working well, we will expand to a larger VPS droplet to see how performance compares with dedicated server hardware _(also running within a fast data center)_ 
 
-:recycle: Last updated: `2020-Jan-30`  
+From a system architecture point of view, whether the system used is virtual or bare metal hardware... performance will be the same at the end of the day given both systems are configured with similar resources/build specs...  Performace and scale are dependent on resources allocated... A powerful VPS should perform equally well with a single dedicated co-located hardware machine configured to the same requirements...
+
+My experience with Virtual Computers goes back to IBM S390 days where I did DevOps on many virtual AIX machines all hosted within a single but super powerful IBM S390 multiprocessor/hypervisor server machine.  One of those machines alone ran all of General Motors Business operations back in the day!
+
+:link: Link to: **[My OpenSim Journey - Project](https://github.com/users/harmonicalchemy/projects/2)**
+
+:recycle: Last updated: `2020-011-01`
 
 _____________________________________________
-# `BEGIN: General Note Text`
-
-
-
-
-
 
 
 ## Create new VPS droplet on DigitalOcean
 
-##### Step 01 - New VPS Creation:
+### Step 01 - New VPS Creation:
 
-These are my new revised for 2020 steps to spin up, and provision a Digital Ocean droplet VPS running the latest Ubuntu 20.04 LTS...
+These are my new revised for 2020 steps to spin up, and provision a **[DigitalOcean](https://m.do.co/c/449bba2e8a2d)** droplet VPS running the latest Ubuntu 20.04 LTS...
 
 For this new OpenSim server I will also try a smaller package to see if it can still manage a 6x6 block of regions. i.e., 1536x1536x512 space on the map.
 
@@ -58,7 +59,7 @@ For this the following package will be created:
 
 This second server will be VPS1.emergent-anomalies.com and for a while I will have both servers... But eventually destroy one of them... I should probably change the name of the SSH key I use to access it...
 
-##### Step 02 - SSH Log In as root First Time:
+### Step 02 - SSH Log In as root First Time:
 
 Upon First Spinning up of a VPS perform the following steps:
 
@@ -115,7 +116,9 @@ applicable law.
 root@vps1:~#
 ```
 
-##### Step 03 - Perform Initial Tasks as Root User:
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 03 - Perform Initial Tasks as Root User:
 
 ```yaml
 root@vps1:~#  apt update
@@ -173,7 +176,7 @@ Rule added
 Rule added (v6)
 ```
 
-##### Step 04 - Do Sanity Check of Installed Packages:
+### Step 04 - Do Sanity Check of Installed Packages:
 
 ```yaml
 
@@ -192,29 +195,13 @@ root@vps1:~# dpkg -l mosh
 root@vps1:~# dpkg -l "*" | more
 ```
 
+**[\[Table of Contents\]](#table-of-contents)**
 
+## Provision your new VPS droplet
 
+Now that you got your server up.. What next?
 
-
-# `END: General Note Text`
-____________________________________________
-
-&nbsp;
-
-# `BEGIN: RAW UN-FORMATTED TEXT`
-
-**Paste Imported Text Between Horizontal Lines:** _(i.e., if you are importing content from an external source)_
-
-____________________________________________
-**`[Paste Here]`**
-
-#### Wednesday - 2020-010-21:
-
-I have decided to destroy my current VPS droplet and start all over again from scratch... This time building / and documenting my steps for the book I am writing in Emacs Org Mode...
-
-There are files on the server I need to save here... I will simply copy them in as code blocks into this log entry for now... I can then use those same code blocks for the tutorial sections of my book...
-
-##### Step 05 - Reboot the Server and Log back in with Mosh:
+### Step 05 - Reboot the Server and Log back in with Mosh:
 
 ```yaml
 root@vps1:~# reboot now
@@ -231,10 +218,9 @@ root
 root@vps1:~# 
 ```
 
+### Step 06 - Perform First Step VPS Security Provisions:
 
-##### Step 06 - Perform First Step VPS Security Provisions:
-
-###### Create sysAdmin sudo User:
+#### Create sysAdmin sudo User:
 
 Open your local KeePassXC password vault and create a new password entry record to hold your new sysAdmin sudo user's password and credentials...  Once you have all that saved use that info _(with strong generated password)_ to create your new user below...
 
@@ -266,7 +252,7 @@ root@vps1:~#
 
 Once the above is done, you do not need to enter any further information. Note: Room Number, Work Phone, Home Phone are unneccessary, (unless you are System Admin of a university or big company that is. %^) I simply put sys$Admin as the full name. That is a personal mark of mine, (an echo from past VAX/VMS and unix perl scripting days ;-) that lets me easily tell, after a year or so of many server set ups, that I did in fact create that system user. The obscure username also helps me remember that I was the one who created the account. In the next step we will grant “alice” root capabilities by proxy.
 
-###### Grant sysAdmin User Root Privileges _(sudo)_:
+#### Grant sysAdmin User Root Privileges _(sudo)_:
 
 Now we are ready to grant our sys admin user rootly superpower! Unix provides a means to temporarily grant rootly superpower through the ‘sudo’ (Super-USER-DO) or “mother may I be root?” command. The word sudo is pronounced like we pronounce the word “Pseudo”, and our sudo is actually more phonetically correct.. _(unless you speak Greek that is! %^)_
 
@@ -429,8 +415,10 @@ _(group(s) can be a comma-separated list of valid group names)_
 
 There are a lot more basic command tricks you should learn to make your life easier! Use the unix man pages, and/or read online docs...
 
-##### Step 07 - Copy authorized_keys file from `root`:
 
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 07 - Copy authorized_keys file from `root`:
 
 - **Copy:** `/root/.ssh/authorized_keys` **to** `alice` **:**     
 `root@vps2:~# mkdir /home/alice/.ssh`     
@@ -447,7 +435,7 @@ The above allows `alice` to log in remotely via SSH, and also protects Alice's $
 
 Completing the above steps... You are all done... Now Alice, _(your new sys$Admin user is ready for action and can log in remotely)_
 
-##### Step 08 - Log In with your new Sys§Admin User:
+### Step 08 - Log In with your new Sys§Admin User:
 
 Don't log off your present root terminal session yet!  Instead, check to see if you can log in with your new sys admin user via SSH within another terminal window. 
 
@@ -533,7 +521,10 @@ alice@vps2:~$
 Now you are done setting up your sys§Admin account for doing rootly things, and you have
 tested to make sure it all works. Continue to stay logged in as the sys§Admin (system user with rootly privileges). You are now ready to finish configuration using your new sys§Admin account.
 
-##### Step 09 - Install Emacs Editor:
+
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 09 - Install Emacs Editor:
 
 If you never used a text editor before, install emacs using the guide below on both your local and server machines... There are plenty of cheat-sheets around and after a couple weeks of using it you will be hooked! Emacs is going to be your best app friend! I guarantee! (That is, your editor-of-choice-religious-attitude has not been poisoned yet by using another text editor... Of course... Right?) END: emacs recruitment pitch!
 
@@ -559,7 +550,7 @@ You will need to edit a lot of files! And you can zoom much faster with dried-mo
 That's an older version of Emacs than I use on my local machines, with fancy publishing tools installed etc.  But it works fine for editing files and getting around on the server...  We installed it first so we can edit `/etc/ssh/sshd_config` below using `sudo`:
 
 
-##### Step 10 - Configure OpenSSH:
+### Step 10 - Configure OpenSSH:
 
 > **Note to Self:** _(remove this later)_ For detailed information about SSH Key Configuration and more OpenSSH security management as a whole see this document: **HAP OpenSSH Configuration & Management** . If you are also setting up SSH for Mac OS, follow this guide for MacOS specifics: **HAP OS-X OpenSSH Best Practice Guide**
 
@@ -569,7 +560,7 @@ The following steps below will configure your VPS Droplet with tight and narrow 
 
 > Don’t loose your credentials otherwise you could get locked out of your VPS, and your only recourse would be to destroy and rebuild a completely new machine (a repeat raw build of the machine you were locked out of) and start all over (hope you made backups of configurations etc.). Any data stored on the old server that was not backed up in a place where you have access will be lost forever! Sorry Charlie! Consider yourself warned!  Be diligent and careful with security...
 
-###### Edit SSH daemon Configuration file: `/etc/ssh/sshd_config`
+#### Edit SSH daemon Configuration file: `/etc/ssh/sshd_config`
 
 The example below is my **_Security Hardened_** version of the default `sshd_config` file that came with **Ubuntu V20.04 LTS** out of the box... Many of the settings I explicitly set below are the actual defaults now...  But setting them explicitly here lets me know for sure they are the settings I am using on the server. _(sometimes relying on defaults can be dangerous)_ In addition to the default settings already supplied out-of-box, I have added extremely restrictive cipher and key exchange rules!  Much more strict than open-community SSH servers like GitHub.com etc...  It's your private machine, and only you need to SSH connect to it... Lets make that stronger...
 
@@ -787,7 +778,7 @@ Subsystem       sftp    /usr/lib/openssh/sftp-server
 ```
 
 
-###### Checking your Configuration Results:
+#### Checking your Configuration Results:
 
 
 After making any changes to the servers SSH configuration you must reload the daemon:
@@ -808,7 +799,7 @@ $> ssh -1 user@your-vps-host-IP
 ```
 You should get the error: `SSH protocol v.1 is no longer suported`
 
-###### Check SSH Server Logs:
+#### Check SSH Server Logs:
 
 ```yaml
 alice@vps2:~$ sudo journalctl -u ssh
@@ -822,7 +813,10 @@ alice@vps2:~$ sudo journalctl -eu ssh
 ```
 You will be surprised at all the bad guys trying to access your machine with those "Failed password" lines!!!
 
-##### Step 11 - Install Fail2Ban:
+
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 11 - Install Fail2Ban:
 
 Log back into your server if not already logged in...
 
@@ -866,7 +860,7 @@ alice@vps2:~$ sudo systemctl reload fail2ban
 ```
 For more information consult the man pages for `jail.conf`
 
-##### Step 12 - Make Initial Snapshot of your Default Base VPS Server Now:
+### Step 12 - Make Initial Snapshot of your Default Base VPS Server Now:
 
 Shutdown your Server from the Terminal:
 
@@ -874,7 +868,7 @@ Shutdown your Server from the Terminal:
 sudo shutdown now
 ```
 
-- Log into your Digital Ocean account in your web browser
+- Log into your **[DigitalOcean](https://m.do.co/c/449bba2e8a2d)** account in your web browser
 
 - Click on this droplet's name
 
@@ -893,15 +887,17 @@ When done you can start the droplet back up and log in...
 
 
 
-____________________________________________
 
-**Cleanup:** Remove this entire `RAW UN-FORMATTED TEXT` section, including the headings once all the text has been re-formatted to markdown and placed in its proper place above...  Once that is done you should also change the `BEGIN:` `END:` General Note Text headings to something more specific to your new document...
 
-#### Thursday - 2020-010-22:
 
-Continuing to build my second OpenSim Server `vps1.emergent-anomalies.com` from yesterday...
 
-##### Step 13 - Install Nginx Web Server
+**[\[Table of Contents\]](#table-of-contents)**
+
+## Install / Provision Web Server
+
+Our Base Server Operations Software is installed and provisioned...  Web server tasks are next...
+
+### Step 13 - Install Nginx Web Server
 
 Installing Nginx is easy... Log in as your normal `sudo` user, do `apt update` and `apt upgrade`:
 
@@ -930,7 +926,7 @@ Now type the public IP of your server into a web browser and you should get the 
 All Done!
 
 
-##### Step 14 - Install MariaDB Server
+### Step 14 - Install MariaDB Server
 
 Log in as your normal `sudo` user, do `apt update` and `apt upgrade`:
 
@@ -982,19 +978,21 @@ for debian-linux-gnu (x86_64) using readline 5.2
 alice@vps1:~$
 ```
 
-##### Step 15 - Install PHP7.4
+
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 15 - Install PHP7.4
 
 PHP7.4 is included in Ubuntu 20.04 repository and has a minor performance improvement over PHP7.3. Enter the following command to install PHP7.4 and some common extensions.
 
-###### Install PHP7.7 with Extra Extensions:
+#### Install PHP7.7 with Extra Extensions:
 
 ```yaml
 alice@vps1:~$ sudo apt install php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl
 ```
-Installing the extra PHP extensions ensure any CMS (like WordPress) run smoothly. 
+Installing the extra PHP extensions ensure any CMS (like WordPress) run smoothly.
 
-
-###### Start php7.4-fpm & Enable for System Boot:
+#### Start php7.4-fpm & Enable for System Boot:
 
 ```yaml
 alice@vps1:~$ sudo systemctl start php7.4-fpm
@@ -1003,7 +1001,7 @@ alice@vps1:~$ sudo systemctl enable php7.4-fpm
 # Check status:
 alice@vps1:~$ systemctl status php7.4-fpm
 ```
-##### Step 16 - Create Nginx Server Block
+### Step 16 - Create Nginx Server Block
 
 Nginx server blocks are similar to virtual hosts in Apache. For our purposes we will not be using the default server block...  It is not set up to run PHP well... Therefore
 remove the default symlink in the sites-enabled directory by running the following command: _(It’s still available as /etc/nginx/sites-available/default)_
@@ -1012,7 +1010,7 @@ remove the default symlink in the sites-enabled directory by running the followi
 alice@vps1:~$ sudo rm /etc/nginx/sites-enabled/default
 ```
 
-###### Create new Nginx Server Block file in `/etc/nginx/conf.d`
+#### Create new Nginx Server Block file in `/etc/nginx/conf.d`
 
 ```yaml
 alice@vps1:~$ sudo Emacs /etc/nginx/conf.d/default.conf
@@ -1057,7 +1055,7 @@ server {
 Save and Close the file after adding the above code...
 
 
-###### Test for Nginx configuration:
+#### Test for Nginx configuration:
 
 ```yaml
 alice@vps1:~$ sudo nginx -t
@@ -1070,14 +1068,9 @@ alice@vps1:~$ sudo systemctl reload nginx
 ```
 
 
+**[\[Table of Contents\]](#table-of-contents)**
 
-
-
-
-
-
-
-##### Step 17 - Test PHP
+### Step 17 - Test PHP
 
 > **Warning!** The file you are about to create and view over the web is a dangerous thing! If you are hosting a live server _(even just for test purposes, i.e. you have not announced or promoted it yet)_ there are bot scripts out there probing IP addresses and these bot scripts look for that file as a web page! If they see the resulting page they will gain a hole lot of information about your machine and may try launching a penetration attack. That is, if they find anything interesting and worth pirateing.   Therefore, do this test quickly... _(i.e. within one minute)_ and then delete that file so it can no longer be probed by hackers...
 
@@ -1108,7 +1101,7 @@ NOW DELETE THAT FILE ASAP!!!
 alice@vps1:~$ sudo rm /usr/share/nginx/html/info.php
 ```
 
-##### Step 18 - Nginx Troubleshooting Tips
+### Step 18 - Nginx Troubleshooting Tips
 
 - If you encounter errors, you can check the **Nginx error log** **(`/var/log/nginx/error.log`)** to find out what’s wrong.
 
@@ -1158,264 +1151,15 @@ systemctl status nginx
 
 You will find Nginx automatically restarted...
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Friday - 2020-010-23:  
 
-Continuing to build my second OpenSim Server `vps1.emergent-anomalies.com` from yesterday...
+**[\[Table of Contents\]](#table-of-contents)**
 
-##### Step 19 - Install phpMyAdmin
-###### Make New KeePassXC vault entry for phpMyAdmin's DBA:
+## Install Wordpress Website
 
-- Title your database entry:  **`phpmyadmin@VPS1.Emergent-Anomalies.com`**
-- Make a secure password for this entry...
-- Save the entry to use below when prompted for `phpmyadmin` password...
+Nginx Web Server all set up now... Time to install our first WordPress website...
 
-###### Download & install `phpMyAdmin` package:
-
-```yaml
-sudo apt update
-sudo apt upgrade
-sudo apt install phpmyadmin
-```
-
-During this install process an automatic psudo GUI session will display on your Terminal screen...  
-
-
-- Press **TAB** to bypass all options for the following screen:      
-**"Please choose the web server that should be automatically configured to run phpMyAdmin"** _(we will set up Nginx for pypMyAdmin later)_
-
-
-- Press **RETURN** to accept OK...
-
-
-The above will install all necessary dependencies including PHP7 extensions _(however you already installed them in previous steps.  This makes sure they are installed however)_. 
-
-During the installation, it will ask if you want to use dbconfig-common to configure the database. 
-
-- Press **Tab** key to select **Yes**.
-
-This will also create a new database user named **`phpmyadmin`**. 
-
-Give this user the password you saved within your new KeePassXC db entry _(created above)_ for this new DBA...
-
-Once the above has been completed, a new database named **phpmyadmin** is created and the database user `phpmyadmin` has necessary privileges to manage this database. 
-
-###### Log into **MariaDB** server:
-
-```yaml
-sudo mysql -u root
-```
-```sql
-MariaDB [(none)]> _
-```
-
-###### Check Privileges of DBA user `phpmyadmin`:
-
-```sql
-MariaDB [(none)]> SHOW GRANTS FOR 'phpmyadmin'@'localhost';
-```
-
-This will show you that user `phpmyadmin` has all privileges on database **phpmyadmin**.
-
-###### Create Master DBA to manage all MariaDB on this server:
-
-Before you go any farther, while still logged in as root SQL user, Go create a new KeePassXC DB entry for your General MariaDB DB Admin user named: **`mariadba`**... Create strong password and save that entry.  Then use that password in the SQL query below...
-
-This SQL command will create your MariaDB Master DB Admin with all priviliges on all databases created on this server...
-
-```sql
-MariaDB [(none)]> create user mariadba@localhost identified by 'your-saved-password-from-keepassxc';
-```
-
-Grant all privileges on all databases to **`mariadba`**.
-
-```sql
-MariaDB [(none)]> grant all privileges on *.* to mariadba@localhost with grant option;
-```
-
-Flush Privileges:
-
-```sql
-MariaDB [(none)]> FLUSH PRIVILEGES;
-```
-
-
-###### Show all MariaDB Users on this machine:
-
-```sql
-MariaDB [(none)]> SELECT User,Host FROM mysql.user;
-+------------+-----------+
-| User       | Host      |
-+------------+-----------+
-| mariadba   | localhost |
-| phpmyadmin | localhost |
-| root       | localhost |
-+------------+-----------+
-3 rows in set (0.000 sec)
-```
-
-Exit MariaDB with **exit** SQL command:
-
-```sql
-MariaDB [(none)]> exit;
-```
-
-##### Step 20 - Create Nginx Server Block for phpMyAdmin app
-###### Create Nginx Conf file for phpMyAdmin:
-
-```yaml
-sudo emacs /etc/nginx/conf.d/phpmyadmin.conf
-```
-
-###### Set up access to **phpMyAdmin** via a sub-domain:
-
-Paste the following text into `phpmyadmin.conf`. Replace `phpma.emergent-anomalies.com` with your actual sub-domain and don’t forget to create DNS A record for it.
-
-
-```conf
-server {
-  listen 80;
-  listen [::]:80;
-  server_name phpma.emergent-anomalies.com;
-  root /usr/share/phpmyadmin/;
-  index index.php index.html index.htm index.nginx-debian.html;
-
-  access_log /var/log/nginx/phpmyadmin_access.log;
-  error_log /var/log/nginx/phpmyadmin_error.log;
-
-  location / {
-    try_files $uri $uri/ /index.php;
-  }
-
-  location ~ ^/(doc|sql|setup)/ {
-    deny all;
-  }
-
-  location ~ \.php$ {
-    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    include fastcgi_params;
-    include snippets/fastcgi-php.conf;
-  }
-
-  location ~ /\.ht {
-    deny all;
-  }
-}
-```
-
-Your phpMyAdmin files are located in: `/usr/share/phpmyadmin/` directory. Save and close the file. Then test Nginx configurations.
-
-```yanl
-sudo nginx -t
-```
-
-If the test is successful, reload Nginx for the changes to take effect:
-
-
-```yaml
-sudo systemctl reload nginx
-```
-
-Now you should be able to access phpMyAdmin web interface via **phpma.emergent-anomalies.com**
-
-##### Step 21 - Install TLS Cert from Let's Encrypt
-
-Setting up a TLS cert on Ubuntu LTS servers is quite straight forward!
-
-###### Get **CertBot** scripts from APT:
-
-```yaml
-sudo apt install certbot python3-certbot-nginx
-```
-**`Python3-certbot-nginx`** is the Nginx plugin for Certbot. 
-
-
-###### Obtain & Install TLS certificate:
-
-```yaml
-sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp -d phpma.emergent-anomalies.com --email you@example.com
-```
-
-Replace `phpma.emergent-anomalies.com` with the sub-domain of your actual server and any other domains / sub-domains that you wish this certificate to be used with. Seporate each domain spec with a comma.  
-
-> **Note:** You must have created a Nginx Server Block for each domain listed ahead of time to be signed by this certificate... Otherwise the above command will fail!!!
-
-Replace you@example.com with the email address you wish to receive notifications about your certificate from Let's Encrypt Org...
-
-You will be asked if you want to receive emails from EFF(Electronic Frontier Foundation). It is recommended to answer Yes to this question, so you will stay in the loop!
-
-After choosing Y or N, your TLS certificate will be automatically obtained and configured for you, and you will see information about it printed to the screen.  Copy this down and set up a KeePassXC DB entry for your cert, where you can store credentials, and notes etc. about your Cert...
-
-###### Test Your TLS Certificate:
-
-Go to **[ssllabs](https://www.ssllabs.com/ssltest/)** to test your TLS certificate and configuration. You should get A+ because HSTS is enabled
-###### TLS Certificate Auto Renewal
-
-Edit root's `crontab` file to add `certbot renew` once daily, and also to `reload nginx` afterwards...
-
-```yaml
-sudo crontab -e
-
-# Add the following line to the bottom of the file:
-
-@daily certbot renew --quiet && systemctl reload nginx
-```
-
-> **Note:** Its important to ad the `reload nginx` line above, otherwise your certs will be auto renewed, BUT the new ones won't get used when clients visit your web site(s).  You may think everything is rosy until the old ones actually expire!  Then you will wonder... "Hey...  That cert was renewed... DOH!"  Reload Nginx silly octopus girl! I made this mistake a couple years ago... Never again!
-
-
-###### Adding new domains to an existing Certificate:
-
-
-This can be kind of tricky but I used the following to add a WordPress site to Emergent-Anomalies.com
-
-```yaml
-sudo certbot --expand --nginx --agree-tos --redirect --hsts --staple-ocsp -d emergent-anomalies.com,phpma.emergent-anomalies.com,www.emergent-anomalies.com --email support@harmonicalchemy.productions
-```
-
-On the **`-d`** option above, you need to include all of your existing domains as well as the new additional domains!  Consult Certbot Manual for more details..
-
-###### Definitions of Certbot options:
-
-- **`--expand`:** If an existing cert covers some subset of the requested names, always expand and replace it with the additional names...
-
-- **`--nginx`: Use the Nginx plugin.**
-
-
-- **`--agree-tos`: Agree to terms of service.**
-
-
-- **`--redirect`: Force HTTPS by 301 redirect.**
-
-
-- **`--hsts`:** Add the Strict-Transport-Security header to every HTTP response. Forcing the browser to always use TLS for the domain. Defends against SSL/TLS Stripping.
-
-
-- **`--staple-ocsp`:** Enables OCSP Stapling. A valid OCSP response is stapled to the certificate that the server offers during TLS.
-
-
-- **`--email`:** Email used for registration and recovery contact.
-
-
-- **`-d` flag:** Follow this flag with a list of domain names, separated by comma. You can add up to 100 domain names.
-
-
-
-
-
-
-
-
-
-
-
-#### Saturday - 2020-010-24
-
-Continuing to build my second OpenSim Server `vps1.emergent-anomalies.com` from yesterday...  Today we will install WordPress on the server...
-
-##### Step 22 - Download & Install WordPress .zip archive:
+### Step 22 - Download & Install WordPress .zip archive:
 
 From your Sys$Admin's home directory issue the following commands to download, unzip, and install the latest WordPress **`.zip`** archive...
 
@@ -1442,7 +1186,7 @@ sudo mv /usr/share/nginx/wordpress /usr/share/nginx/ea-www
 
 _(ea-www is short for: www.emergent-anomalies.com which will be the main website for Emergent Anomalies Paranormal News Magazine)_
 
-##### Step 23 - Create Database & User for WordPress website:
+### Step 23 - Create Database & User for WordPress website:
 
 You can use **phpMyAdmin** for this...  
 
@@ -1478,9 +1222,12 @@ After completing the above you will see a page showing your new Database selecte
 
 If successful you will see a green check at top with message: "You have added a new user"
 
-##### Step 24 - Configure WordPress:
 
-###### Create wp-config.php:
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 24 - Configure WordPress:
+
+#### Create wp-config.php:
 
 ```yaml
 ## Go to your site's Nginx WWW directory:
@@ -1492,7 +1239,7 @@ cd /usr/share/nginx/ea-www/
 sudo cp wp-config-sample.php wp-config.php
 ```
 
-###### Edit wp-config.php:
+#### Edit wp-config.php:
 
 ```yaml
 sudo emacs wp-config.php
@@ -1520,7 +1267,10 @@ Make the Nginx user (`www-data`) owner of this WordPress site directory:
 sudo chown www-data:www-data /usr/share/nginx/ea-www/ -R
 ```
 
-##### Step 25 - Create Nginx Server Block for `ea-www` WordPress site:
+
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 25 - Create Nginx Server Block for `ea-www` WordPress site:
 
 Create the server block file in: `/etc/nginx/conf.d/` directory. Give the file the same name as the **WordPress www site directory** associated with it. Add `.conf` file extension. _(the example below opens up this new empty file in emacs as: `ea-www.conf`)_
 
@@ -1593,7 +1343,8 @@ server {
 
 - **If the test is successful, reload Nginx:**      
 `sudo systemctl reload nginx`
-##### Step 26 - Start up you site's WordPress Install Wizard:
+
+### Step 26 - Start up you site's WordPress Install Wizard:
 
 Enter your domain name with WordPress install.php in the browser address bar:
 
@@ -1609,15 +1360,13 @@ Follow the online instructions to create your new site...
 
 **You are now managing a reasonably secure Linux server on the internet in a fast data center** _(for web now... but for other apps later, and for any purpose)_.  Websites on your server are protected by Certificates issued by Let's Encrypt...  Your cert auto renews every 90 days... You have access to manage your server via SSH, and you configured your firewall to block all except you and only you...  **_Pat yourself on the back!  Job well done!_**
 
-#### - Sunday - 2020-010-25:
+**[\[Table of Contents\]](#table-of-contents)**
 
-Continuing to build my second OpenSim Server `vps1.emergent-anomalies.com` from yesterday... I got a WordPress site shell up for Emergent Anomalies Magazine... That was proof of concept for me to manage other servers & install WordPress websites on them... 
+## Install OpenSim Region Server
 
-All done with **WordPress** for now... 
+All of the basics are out of the way and we even have a WordPress site installed to makd a blog...  Now it is finally time to get to the meat of our project and install the OpenSim Server...
 
-Today I start the actual OpenSim part of this project...
-
-##### Step 27 - Create MariaDB Database `opensim`:
+### Step 27 - Create MariaDB Database `opensim`:
 
 - Go to your **phpMyAdmin** panel to do this... _(You set up and hosted phpMyAdmin in previous steps)..._  Simply enter the URL for your phpMyAdmin site instance within a browser window, and log in as the **MariaDB Admin User** who has privileges to create databases and users..
 
@@ -1626,7 +1375,7 @@ Today I start the actual OpenSim part of this project...
 - Type `opensim` for the Database name... Make sure **`utf8_bin`** is selected, and then **Click the Create Button**...
 
 
-##### Step 28 - Use Squid as a reverse proxy to the asset server:
+### Step 28 - Use Squid as a reverse proxy to the asset server:
 
 [Good Squid Tutorial Here:](https://www.cyberciti.biz/faq/ubuntu-squid-proxy-server-installation-configuration/)
 
@@ -1721,18 +1470,15 @@ coredump_dir /var/spool/squid
 ### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
-
-
-
-- Change your asset_server configuration in your OpenSim.ini to point to: http://localhost:3128/ 
+- Change your asset_server configuration in your OpenSim.ini to point to: http://localhost:3128/
 
 
 Once you get OpenSim up, and regions are hooked up... assets will be cached in the squid cache on your region server, and will be served up much faster, especially on region restart.
 
 
+**[\[Table of Contents\]](#table-of-contents)**
 
-##### Step 29 - Enable Ports on Sever for OpenSim:
-
+### Step 29 - Enable Ports on Sever for OpenSim:
 
 Before starting the process, Open up some ports on your Ubuntu VPS using the default firewall utility: **`ufw`**
 
@@ -1797,6 +1543,7 @@ Now you will see the your new UDP ports added to the list...
 
 - **Open Port 9000 for TCP:** I believe this port is for public grid or something... _(I still need to figure out what exactly the TCP port is for. LOL `%^`)_
 
+
 ```yaml
 ## Allow Port 9000 for TCP traffic:
 
@@ -1829,8 +1576,13 @@ To                         Action      From
 
 alice@vps2:~$ _
 ```
-##### Step 30 - Install & Configure NeverWorld Region Server:
-###### Get NeverWorld Region S/W V0.9.1.1:
+
+
+**[\[Table of Contents\]](#table-of-contents)**
+
+### Step 30 - Install & Configure NeverWorld Region Server:
+
+#### Get NeverWorld Region S/W V0.9.1.1:
 
 While logged in to your server as your Sys$Admin user, use wget to put the .zip file into your home directory:
 
@@ -1839,22 +1591,70 @@ wget https://www.dropbox.com/s/vsjjjtrkdhz991n/neverworld%20region%20server%200.
 ```
 
 Unzip this software in place within your System Admin's home directory... A new directory will be created named:  **`opensim-0.9.1.1`**
-###### Configure OpenSim.ini - Add your ports:
+
+#### Configure OpenSim.ini - Add your ports:
 
 - Go to your OpenSim `bin` directory:  `~/opensim-0.9.1.1/bin`     
-`alice@vps2:~$ cd ~/opensim-0.9.1.1/bin`     
-
+`alice@vps2:~$ cd ~/opensim-0.9.1.1/bin`
 
 Look for a file within this directory called **`opensim.ini`**.  In this `.ini` file, you must change the listener port to a unique port that is different than the port you will be using for your region port.  
 
 Usually you should use a port for the listener port like “8050” and region ports like “9000” or “9001”.  Each region you create will need its own opened port.
 
 
-# `END: RAW UN-FORMATTED TEXT`
-____________________________________________
+## Table Of Contents:
 
-&nbsp;
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 
-# `END: General-Note-TEMPLATE.md`
-____________________________________
+- [HAP OpenSim Region Server Build Config Guide](#hap-opensim-region-server-build-config-guide)
+    - [Introduction:](#introduction)
+    - [Create new VPS droplet on DigitalOcean](#create-new-vps-droplet-on-digitalocean)
+        - [Step 01 - New VPS Creation:](#step-01---new-vps-creation)
+        - [Step 02 - SSH Log In as root First Time:](#step-02---ssh-log-in-as-root-first-time)
+        - [Step 03 - Perform Initial Tasks as Root User:](#step-03---perform-initial-tasks-as-root-user)
+        - [Step 04 - Do Sanity Check of Installed Packages:](#step-04---do-sanity-check-of-installed-packages)
+    - [Provision your new VPS droplet](#provision-your-new-vps-droplet)
+        - [Step 05 - Reboot the Server and Log back in with Mosh:](#step-05---reboot-the-server-and-log-back-in-with-mosh)
+        - [Step 06 - Perform First Step VPS Security Provisions:](#step-06---perform-first-step-vps-security-provisions)
+            - [Create sysAdmin sudo User:](#create-sysadmin-sudo-user)
+            - [Grant sysAdmin User Root Privileges _(sudo)_:](#grant-sysadmin-user-root-privileges-_sudo_)
+        - [Step 07 - Copy authorized_keys file from `root`:](#step-07---copy-authorized_keys-file-from-root)
+        - [Step 08 - Log In with your new Sys§Admin User:](#step-08---log-in-with-your-new-sysadmin-user)
+        - [Step 09 - Install Emacs Editor:](#step-09---install-emacs-editor)
+        - [Step 10 - Configure OpenSSH:](#step-10---configure-openssh)
+            - [Edit SSH daemon Configuration file: `/etc/ssh/sshd_config`](#edit-ssh-daemon-configuration-file-etcsshsshd_config)
+            - [Checking your Configuration Results:](#checking-your-configuration-results)
+            - [Check SSH Server Logs:](#check-ssh-server-logs)
+        - [Step 11 - Install Fail2Ban:](#step-11---install-fail2ban)
+        - [Step 12 - Make Initial Snapshot of your Default Base VPS Server Now:](#step-12---make-initial-snapshot-of-your-default-base-vps-server-now)
+    - [Install / Provision Web Server](#install--provision-web-server)
+        - [Step 13 - Install Nginx Web Server](#step-13---install-nginx-web-server)
+        - [Step 14 - Install MariaDB Server](#step-14---install-mariadb-server)
+        - [Step 15 - Install PHP7.4](#step-15---install-php74)
+            - [Install PHP7.7 with Extra Extensions:](#install-php77-with-extra-extensions)
+            - [Start php7.4-fpm & Enable for System Boot:](#start-php74-fpm--enable-for-system-boot)
+        - [Step 16 - Create Nginx Server Block](#step-16---create-nginx-server-block)
+            - [Create new Nginx Server Block file in `/etc/nginx/conf.d`](#create-new-nginx-server-block-file-in-etcnginxconfd)
+            - [Test for Nginx configuration:](#test-for-nginx-configuration)
+        - [Step 17 - Test PHP](#step-17---test-php)
+        - [Step 18 - Nginx Troubleshooting Tips](#step-18---nginx-troubleshooting-tips)
+    - [Install Wordpress Website](#install-wordpress-website)
+        - [Step 22 - Download & Install WordPress .zip archive:](#step-22---download--install-wordpress-zip-archive)
+        - [Step 23 - Create Database & User for WordPress website:](#step-23---create-database--user-for-wordpress-website)
+        - [Step 24 - Configure WordPress:](#step-24---configure-wordpress)
+            - [Create wp-config.php:](#create-wp-configphp)
+            - [Edit wp-config.php:](#edit-wp-configphp)
+        - [Step 25 - Create Nginx Server Block for `ea-www` WordPress site:](#step-25---create-nginx-server-block-for-ea-www-wordpress-site)
+        - [Step 26 - Start up you site's WordPress Install Wizard:](#step-26---start-up-you-sites-wordpress-install-wizard)
+    - [Install OpenSim Region Server](#install-opensim-region-server)
+        - [Step 27 - Create MariaDB Database `opensim`:](#step-27---create-mariadb-database-opensim)
+        - [Step 28 - Use Squid as a reverse proxy to the asset server:](#step-28---use-squid-as-a-reverse-proxy-to-the-asset-server)
+        - [Step 29 - Enable Ports on Sever for OpenSim:](#step-29---enable-ports-on-sever-for-opensim)
+        - [Step 30 - Install & Configure NeverWorld Region Server:](#step-30---install--configure-neverworld-region-server)
+            - [Get NeverWorld Region S/W V0.9.1.1:](#get-neverworld-region-sw-v0911)
+            - [Configure OpenSim.ini - Add your ports:](#configure-opensimini---add-your-ports)
+    - [Table Of Contents:](#table-of-contents)
+
+<!-- markdown-toc end -->
+
 
