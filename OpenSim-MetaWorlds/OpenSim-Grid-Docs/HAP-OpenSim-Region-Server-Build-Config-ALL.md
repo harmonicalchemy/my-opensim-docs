@@ -53,11 +53,11 @@ For this the following package will be created:
 - **Data Center:** `SF03`
 - **IPv6** `YES`
 - **Monitoring** `YES`
-- **SSH keys:** `YES` _(use existing ea-vps2_id_ed25519 key)_
-- **Host Name:** `vps1.emergent-anomalies.com`
+- **SSH keys:** `YES` _(use your existing id_ed25519 key)_
+- **Host Name:** `vps1.example.com`
 
 
-This second server will be VPS1.emergent-anomalies.com and for a while I will have both servers... But eventually destroy one of them... I should probably change the name of the SSH key I use to access it...
+Call the new server My-VPS1@My-Domain.com or something like that...
 
 ### Step 02 - SSH Log In as root First Time:
 
@@ -69,9 +69,10 @@ Once SSH is configured locally, perform the first time log-in tasks as root user
 
 ```yaml
 
-$> ssh ea1-root     # root@vps1.emergent-anomalies.com
+$> ssh root@My-VPS.com       # root@vps1.example.com
 
-Host key fingerprint is SHA256:KfKozx4ySNICrdf8XqaMv5kQ2d2JUoNEMWB6RKLtmXk
+Host key fingerprint is SHA256:
+xoz4yKfKNICrdX8qamV205kENouJBWmLkR6tmXkz1yt
 +--[ED25519 256]--+
 |  ..=o=.         |
 | + = . o         |
@@ -212,7 +213,7 @@ $>
 
 ## Log back as root user using mosh now:
 
-$> mosh ea1-root
+$> mosh root@vps1.example.com
 root@vps1:~# whoami
 root
 root@vps1:~# 
@@ -527,6 +528,9 @@ tested to make sure it all works. Continue to stay logged in as the sys§Admin (
 ### Step 09 - Install Emacs Editor:
 
 If you never used a text editor before, install emacs using the guide below on both your local and server machines... There are plenty of cheat-sheets around and after a couple weeks of using it you will be hooked! Emacs is going to be your best app friend! I guarantee! (That is, your editor-of-choice-religious-attitude has not been poisoned yet by using another text editor... Of course... Right?) END: emacs recruitment pitch!
+
+If you don't care to get involved with emacs _(I cannot hardly blame you. I had that attitude once until I saw someone going fast as crazy doing all kinds of stuff with it. Then I was ready to bite the bullet)_.  Just the same... there is a simple code editor installed by default on most Linux distributions clled **`nano`** This bare-bones editor works fine for doing the tasks below as well.  In that case, skip Step 9 alltogether and simply use **`nano`** instead... Replace the word "**`emacs`**" in the examples below with "**`nano`**" and you will be all set...
+
 
 Emacs is available on almost everything! I usually install it from the package manager's right away first thing asap so I can get to editing files and managing the file system easier... This is especially important in the beginning stages of server provisioning without the help of yucky GUI apps like CPanel.  OMG don't get me started on that! 
 
@@ -877,7 +881,7 @@ sudo shutdown now
 
 - Go to Snapshots section... 
 
-- Give snapshot a name:  e.g., EA-VPS1-Initial-Build
+- Give snapshot a name:  e.g., My-VPS1-Initial-Build
 
 - Click Take Snapshot button...
 
@@ -903,7 +907,7 @@ Installing Nginx is easy... Log in as your normal `sudo` user, do `apt update` a
 
 
 ```yaml
-$> mosh alice@vps1.emergent-anomalies.com
+$> mosh alice@vps1.example.com
 alice@vps1:~$ 
 alice@vps1:~$ sudo apt update
 alice@vps1:~$ sudo apt upgrade
@@ -931,7 +935,7 @@ All Done!
 Log in as your normal `sudo` user, do `apt update` and `apt upgrade`:
 
 ```yaml
-$> mosh alice@vps1.emergent-anomalies.com
+$> mosh alice@vps1.example.com
 alice@vps1:~$ 
 alice@vps1:~$ sudo apt update
 alice@vps1:~$ sudo apt upgrade
@@ -1181,186 +1185,10 @@ The archive will be extracted to the: `/usr/share/nginx/` directory. A new direc
 Rename `wordpress` to an abbreviation name of your website address similar to this:
 
 ```bash
-sudo mv /usr/share/nginx/wordpress /usr/share/nginx/ea-www
+sudo mv /usr/share/nginx/wordpress /usr/share/nginx/my-www
 ```
 
-_(ea-www is short for: www.emergent-anomalies.com which will be the main website for Emergent Anomalies Paranormal News Magazine)_
-
-### Step 23 - Create Database & User for WordPress website:
-
-You can use **phpMyAdmin** for this...  
-
-- Log in to: https://phpma.emergent-anomalies.com using your **phpMyAdmin** username: `phpma` and password from **KeePassXC** vault.
-
-- Go to the Databases Tab: https://phpma.emergent-anomalies.com/server_databases.php
-
-- Enter your new database name in the text box under **"Create database"** for this database use the same name you used for its **WordPress** www sub-directory name above.      
-In my case I named it:  **ea-www**
-
-- Click on the **Create** button...  This will create the database with no tables yet...
-
-After completing the above you will see a page showing your new Database selected in the left panel, with information about it in the right pane...  There is a button at the bottom for creating new db admin users to manage this database.
-
-- Create a new **KeePassXC** item for a new **WordPress dba** who will manage this database exclusively. Save the password to use in the next step...
-
-- Click **Add user account** under the **New** button at the bottom of the right panel to start the process.  
-
-
-- Enter **`ea-www`** into the text box titled User name...
-
-- Enter Localhost in the Host name: field...
-
-- Paste the saved password for this user within the Password: field and paste it agin into Re-type: field...
-
-- Check Grant all privileges on database ea-www _(you will see the naves of your databases listed here and your Wordpress database name could be different)_
-
-- Tick the Checkboxes:  **Data** & **Structure** but leave Administration checkbox un-ticked...
-
-- Tick REQUIRE SSL under the **SSL** section...
-
-- Click the **Go** button at bottom of page... 
-
-If successful you will see a green check at top with message: "You have added a new user"
-
-
-**[\[Table of Contents\]](#table-of-contents)**
-
-### Step 24 - Configure WordPress:
-
-#### Create wp-config.php:
-
-```yaml
-## Go to your site's Nginx WWW directory:
-
-cd /usr/share/nginx/ea-www/
-
-## Clone/rename a working copy of `wp-config-sample.php`
-
-sudo cp wp-config-sample.php wp-config.php
-```
-
-#### Edit wp-config.php:
-
-```yaml
-sudo emacs wp-config.php
-```
-
-Find the following lines and replace: `database_name_here`, `username_here` and `password_here` with the credentials you created and saved to your **KeePassXC Vault** previously:
-
-```php
-/** The name of the database for WordPress */
-define('DB_NAME', 'database_name_here');
-
-/** MySQL database username */
-define('DB_USER', 'username_here');
-
-/** MySQL database password */
-define('DB_PASSWORD', 'password_here');
-```
-
-Save and close the file...
-
-
-Make the Nginx user (`www-data`) owner of this WordPress site directory:
-
-```yaml
-sudo chown www-data:www-data /usr/share/nginx/ea-www/ -R
-```
-
-
-**[\[Table of Contents\]](#table-of-contents)**
-
-### Step 25 - Create Nginx Server Block for `ea-www` WordPress site:
-
-Create the server block file in: `/etc/nginx/conf.d/` directory. Give the file the same name as the **WordPress www site directory** associated with it. Add `.conf` file extension. _(the example below opens up this new empty file in emacs as: `ea-www.conf`)_
-
-```yaml
-sudo emacs /etc/nginx/conf.d/ea-www.conf
-```
-
-Paste the server block code below into the file. Replace the `server_name` and `root` designations to your own domain name and site folder path-name. I am using www.emergent-anomalies.com and `.../nginx/ea-www/` for mine below.  I already created a host record for www.emergent-anomalies.com which points to vps1.emergent-anomalies.com` IP address.
-
-> **Reminder** Don’t forget to create A records for your domain name in your DNS manager!
-
-```conf
-server {
-  listen 80;
-  listen [::]:80;
-  server_name www.emergent-anomalies.com emergent-anomalies.com;
-  root /usr/share/nginx/ea-www/;
-  index index.php index.html index.htm index.nginx-debian.html;
-
-  location / {
-    try_files $uri $uri/ /index.php;
-  }
-
-  error_page 404 /404.html;
-  error_page 500 502 503 504 /50x.html;
-
-  client_max_body_size 2M;
-
-  location = /50x.html {
-    root /usr/share/nginx/html;
-  }
-
-  location ~ \.php$ {
-    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    include fastcgi_params;
-    include snippets/fastcgi-php.conf;
-  }
-
-  #enable gzip compression
-  gzip on;
-  gzip_vary on;
-  gzip_min_length 1000;
-  gzip_comp_level 5;
-  gzip_types application/json text/css application/x-javascript application/javascript image/svg+xml;
-  gzip_proxied any;
-
-  # A long browser cache lifetime can speed up repeat visits to your page
-  location ~* \.(jpg|jpeg|gif|png|webp|svg|woff|woff2|ttf|css|js|ico|xml)$ {
-       access_log        off;
-       log_not_found     off;
-       expires           360d;
-  }
-
-  # disable access to hidden files
-  location ~ /\.ht {
-      access_log off;
-      log_not_found off;
-      deny all;
-  }
-}
-```
-
-- **Save and close the file**. 
-
-
-- **Test Nginx configurations:**       
-`sudo nginx -t`     
-
-
-- **If the test is successful, reload Nginx:**      
-`sudo systemctl reload nginx`
-
-### Step 26 - Start up you site's WordPress Install Wizard:
-
-Enter your domain name with WordPress install.php in the browser address bar:
-
-www.emergent-anomalies.com/wp-admin/install.php
-
-Follow the online instructions to create your new site...
-
-- Create a **KeePassXC** database item to store your **WordPress** username and password and other secret credentials about your new WordPress website...  Use that info on the WordPress Install Wizard web form...
-
-- **Customize your new WordPress Website!  Yay!!!**
-
-**Congratulations!!!**  After completing all of the steps to get to this point you can call yourself a **_Self Made Sys$Admin_**. You earned that title grinding through all the steps, stumbling and falling along the way, picking yourself back up, trying things out a few times before mastering and getting them working correctly, learning all the basics, and a few advanced things as well along the way... 
-
-**You are now managing a reasonably secure Linux server on the internet in a fast data center** _(for web now... but for other apps later, and for any purpose)_.  Websites on your server are protected by Certificates issued by Let's Encrypt...  Your cert auto renews every 90 days... You have access to manage your server via SSH, and you configured your firewall to block all except you and only you...  **_Pat yourself on the back!  Job well done!_**
-
-**[\[Table of Contents\]](#table-of-contents)**
+_(my-www is short for: www.example.com)_
 
 ## Install OpenSim Region Server
 
@@ -1644,7 +1472,7 @@ Usually you should use a port for the listener port like “8050” and region p
         - [Step 24 - Configure WordPress:](#step-24---configure-wordpress)
             - [Create wp-config.php:](#create-wp-configphp)
             - [Edit wp-config.php:](#edit-wp-configphp)
-        - [Step 25 - Create Nginx Server Block for `ea-www` WordPress site:](#step-25---create-nginx-server-block-for-ea-www-wordpress-site)
+        - [Step 25 - Create Nginx Server Block for `my-www` WordPress site:](#step-25---create-nginx-server-block-for-my-www-wordpress-site)
         - [Step 26 - Start up you site's WordPress Install Wizard:](#step-26---start-up-you-sites-wordpress-install-wizard)
     - [Install OpenSim Region Server](#install-opensim-region-server)
         - [Step 27 - Create MariaDB Database `opensim`:](#step-27---create-mariadb-database-opensim)
@@ -1656,5 +1484,3 @@ Usually you should use a port for the listener port like “8050” and region p
     - [Table Of Contents:](#table-of-contents)
 
 <!-- markdown-toc end -->
-
-
