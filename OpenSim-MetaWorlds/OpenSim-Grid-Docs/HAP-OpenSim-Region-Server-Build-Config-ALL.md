@@ -1369,7 +1369,8 @@ alice@vps2:~$ _
 
 Now you will see the your new UDP ports added to the list...
 
-- **Open Port 9000 for TCP:** I believe this port is for public grid or something... _(I still need to figure out what exactly the TCP port is for. LOL `%^`)_
+
+- **Open Port 9000 for TCP:** This is the Simulator HTTP port. This is not the region port, but the port the entire simulator listens on. This port uses the TCP protocol, whilethe region ports use UDP. This port must be unique to the simulator. It has been set within OpenSim.ini as follows: `http_listener_port = 9000`
 
 
 ```yaml
