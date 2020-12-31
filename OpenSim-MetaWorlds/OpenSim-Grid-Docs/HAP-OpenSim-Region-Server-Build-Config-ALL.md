@@ -1194,13 +1194,29 @@ _(my-www is short for: www.example.com)_
 
 All of the basics are out of the way and we even have a WordPress site installed to makd a blog...  Now it is finally time to get to the meat of our project and install the OpenSim Server...
 
-### Step 27 - Create MariaDB Database `opensim`:
+### Step 27 - Create MariaDB `opensim` Database & User:
 
-- Go to your **phpMyAdmin** panel to do this... _(You set up and hosted phpMyAdmin in previous steps)..._  Simply enter the URL for your phpMyAdmin site instance within a browser window, and log in as the **MariaDB Admin User** who has privileges to create databases and users..
+- Go to your **phpMyAdmin** panel to do this... _(You set up and hosted phpMyAdmin in previous steps)..._  Simply enter the URL for your phpMyAdmin site instance within a browser window, and log in as the **MariaDB Admin User** who has privileges to create databases and users..  **phpMyAdmin** creates databases with `utf8mb4`  by default... This OpenSim db needs to be utf8mb3.  This is why we need to create the database first and then assign `opensim` as the DB Admin.
 
 - Once logged in, click the **Databases** tab...
 
-- Type `opensim` for the Database name... Make sure **`utf8_bin`** is selected, and then **Click the Create Button**...
+- Type `opensim` in the field under "**Create database**" for the DB name... 
+
+- Choose `utf8_general_ci` for Collation type (this is `utf8mb3`) according to the Maria DB docs...
+
+- Click **Create**
+
+A new opensim database is created with no tables in it...
+
+- Click on **Check Privileges** for **`opensim`** db in the database list...
+
+- Now, Click **Edit privileges** for username **`opensim`**...
+
+- Give DBA user **`opensim`** all privileges except `GRANT`
+
+- Click the **Go** button...
+
+
 
 
 ### Step 28 - Use Squid as a reverse proxy to the asset server:
@@ -1333,7 +1349,7 @@ alice@vps2:~$ _
 ```
 You should see a screen just as the above from your previous configurations...
 
-- **Open Ports 8000 to 8010 for udp:** These ports are for your regions. _(up to 10 which is more than enough starting out!)_...
+- **Open Ports 8000 to 8010 for udp:** These ports will be for your regions. _(up to 10 which is more than enough starting out!)_... Your region ports only need UDP access... The HTTP listener _(see below)_ uses TCP.
 
 
 ```yaml
@@ -1370,7 +1386,8 @@ alice@vps2:~$ _
 Now you will see the your new UDP ports added to the list...
 
 
-- **Open Port 9000 for TCP:** This is the Simulator HTTP port. This is not the region port, but the port the entire simulator listens on. This port uses the TCP protocol, whilethe region ports use UDP. This port must be unique to the simulator. It has been set within OpenSim.ini as follows: `http_listener_port = 9000`
+- **Open Port 9000 for TCP:** This is the Simulator HTTP port. This is not the region port, but the port the entire simulator listens on. This port uses the TCP protocol, whilst the region ports use UDP. This port must be unique to the simulator. It has been set within OpenSim.ini as follows:      
+`http_listener_port = 9000`
 
 
 ```yaml
@@ -1426,9 +1443,41 @@ Unzip this software in place within your System Admin's home directory... A new 
 - Go to your OpenSim `bin` directory:  `~/opensim-0.9.1.1/bin`     
 `alice@vps2:~$ cd ~/opensim-0.9.1.1/bin`
 
-Look for a file within this directory called **`opensim.ini`**.  In this `.ini` file, you must change the listener port to a unique port that is different than the port you will be using for your region port.  
+Look for a file within this directory called **`opensim.ini`**.  In this MS Windows init `.ini` file, you will see the following settings close to the beginning of the file:
 
-Usually you should use a port for the listener port like “8050” and region ports like “9000” or “9001”.  Each region you create will need its own opened port.
+```ini
+[const]
+
+   ; this setcion defines constants for grid services
+   ; etc. . .
+   ; . . .
+
+   PublicPort = "8001"
+
+   ; A few more comments and settings follow . . .
+
+   PrivatePort = "8003"
+
+   ; Many comments and settings follow . . .
+
+[Network]
+
+   ; Simulator HTTP port.
+
+   http_listener_port = "9000"
+```
+
+Make sure your `OpenSim.ini` Public and Private port settings are set as in the above example.  The listener port (TCP) must be a unique from anything else running on your machine. I simply kept it to the default `9000` which was already set that way.  
+
+> **Note:** We enabled our firewall to accept TCP traffic on port 9000 above and also enabled ports 8000 to 8010 for UDP traffic... after confirming OpenSim.ini has those same ports set, you can save and close the file... Ports are all set up now...
+
+
+#### OpenSim Database Settings
+
+For our OpenSim server we will use **MySQL** _(i.e., **MariaDB** which we installed)_  We also already created a database named **`opensim`** with db admin user of the same name: `opensim`
+
+
+
 
 
 ## Table Of Contents:
